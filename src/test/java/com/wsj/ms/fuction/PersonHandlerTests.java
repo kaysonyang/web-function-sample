@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package org.springframework.samples.web.reactive.function;
+package com.wsj.ms.fuction;
 
+import com.wsj.ms.fuction.model.Person;
 import org.junit.Before;
 import org.junit.Test;
 
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
+
+import static org.springframework.web.reactive.function.BodyInserters.fromObject;
 
 /**
  * @author Arjen Poutsma
@@ -73,7 +76,7 @@ public class PersonHandlerTests {
 		this.testClient.post()
 				.uri("/")
 				.contentType(MediaType.APPLICATION_JSON)
-				.body(jack)
+				.body(fromObject(jack))
 				.exchange()
 				.expectStatus().isOk();
 

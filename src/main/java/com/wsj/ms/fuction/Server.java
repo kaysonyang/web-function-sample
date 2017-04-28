@@ -14,8 +14,16 @@
  * limitations under the License.
  */
 
-package org.springframework.samples.web.reactive.function;
+package com.wsj.ms.fuction;
 
+import com.fasterxml.jackson.core.io.UTF8Writer;
+import com.fasterxml.jackson.core.json.UTF8DataInputJsonParser;
+import com.wsj.ms.fuction.repository.DummyPersonRepository;
+import com.wsj.ms.fuction.repository.DummyProductRepository;
+import com.wsj.ms.fuction.repository.PersonRepository;
+import com.wsj.ms.fuction.repository.ProductRepository;
+import com.wsj.ms.fuction.service.PersonHandler;
+import com.wsj.ms.fuction.service.ProductHandler;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
@@ -38,7 +46,12 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.nest;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 import static org.springframework.web.reactive.function.server.RouterFunctions.toHttpHandler;
-
+/**
+ * @description 
+ *
+ * @author kayson Yang
+ * @create 
+ */
 public class Server {
 
 	public static final String HOST = "localhost";
@@ -47,7 +60,7 @@ public class Server {
 
 	public static void main(String[] args) throws Exception {
 		Server server = new Server();
-//		server.startReactorServer();
+		//server.startReactorServer();
 		server.startTomcatServer();
 
 		System.out.println("Press ENTER to exit.");
@@ -56,14 +69,30 @@ public class Server {
 
 	public RouterFunction<ServerResponse> routingFunction() {
 		PersonRepository repository = new DummyPersonRepository();
+		ProductRepository repository2 = new DummyProductRepository();
 		PersonHandler handler = new PersonHandler(repository);
+		ProductHandler handler2 = new ProductHandler(repository2);
 
 		return nest(path("/person"),
-				nest(accept(APPLICATION_JSON),
-						route(GET("/{id}"), handler::getPerson)
-						.andRoute(method(HttpMethod.GET), handler::listPeople)
-				).andRoute(POST("/").and(contentType(APPLICATION_JSON)), handler::createPerson));
+				   nest(   accept(APPLICATION_JSON),
+						   route(GET("/{id}"), handler::getPerson)
+						   .andRoute(method(HttpMethod.GET), handler::listPeople)
+				        )
+					.andRoute( POST("/")
+							   .and(contentType(APPLICATION_JSON)),
+							handler::createPerson))
+
+				.andNest(path("/product"),nest(
+						accept(APPLICATION_JSON),
+						route(GET("/{id}"), handler2::getProduct)
+								.andRoute(method(HttpMethod.GET), handler2::listProduct)
+				).andRoute( POST("/p")
+								.and(contentType(APPLICATION_JSON)),
+						handler2::createProduct)
+				);
 	}
+
+
 
 	public void startReactorServer() throws InterruptedException {
 		RouterFunction<ServerResponse> route = routingFunction();

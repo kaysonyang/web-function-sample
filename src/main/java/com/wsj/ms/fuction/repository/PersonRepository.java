@@ -14,11 +14,17 @@
  * limitations under the License.
  */
 
-package org.springframework.samples.web.reactive.function;
+package com.wsj.ms.fuction.repository;
 
+import com.wsj.ms.fuction.model.Person;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
+/**
+ * @description 
+ *
+ * @author kayson Yang
+ * @create 
+ */
 public interface PersonRepository {
 
 	Mono<Person> getPerson(int id);

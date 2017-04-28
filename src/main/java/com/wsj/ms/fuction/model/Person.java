@@ -14,10 +14,18 @@
  * limitations under the License.
  */
 
-package org.springframework.samples.web.reactive.function;
+package com.wsj.ms.fuction.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+/**
+ * @description 
+ *
+ * @author kayson Yang
+ * @create 
+ */
+@Data
 public class Person {
 
 	private final String name;
@@ -29,19 +37,4 @@ public class Person {
 		this.age = age;
 	}
 
-	public String getName() {
-		return this.name;
-	}
-
-	public int getAge() {
-		return this.age;
-	}
-
-	@Override
-	public String toString() {
-		return "Person{" +
-				"name='" + name + '\'' +
-				", age=" + age +
-				'}';
-	}
 }

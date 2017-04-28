@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
-package org.springframework.samples.web.reactive.function;
+package com.wsj.ms.fuction.repository;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import com.wsj.ms.fuction.model.Person;
+import com.wsj.ms.fuction.repository.PersonRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * @author Arjen Poutsma
+ * @description 
+ *
+ * @author kayson Yang
+ * @create 
  */
 public class DummyPersonRepository implements PersonRepository {
 

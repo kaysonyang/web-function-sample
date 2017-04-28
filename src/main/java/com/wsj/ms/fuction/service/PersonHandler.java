@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package org.springframework.samples.web.reactive.function;
+package com.wsj.ms.fuction.service;
 
+import com.wsj.ms.fuction.model.Person;
+import com.wsj.ms.fuction.repository.PersonRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -25,6 +27,12 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.BodyInserters.fromObject;
 
+/**
+ * @description 
+ *
+ * @author kayson Yang
+ * @create 
+ */
 public class PersonHandler {
 
 	private final PersonRepository repository;
